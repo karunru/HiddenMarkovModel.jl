@@ -90,8 +90,7 @@ module Hmm
 
     # 再帰的計算
     for t in n:-1:2
-      β[t-1, :] = [dot(hmm.A[1,:],(hmm.B[:, Int(obs[t]+1)] .* β[t, :])),
-                    dot(hmm.A[2,:],(hmm.B[:, Int(obs[t]+1)] .* β[t, :]))]
+      β[t-1, :] = hmm.A * (hmm.B[:, Int(obs[t]+1)] .* β[t, :])
       β[t-1, :] = hmm.c[t-1] * β[t-1, :]
     end
 
