@@ -69,8 +69,7 @@ module Hmm
 
     # 再帰的計算
     for t in 2:n
-      # np.dot(alpha[t-1, :], A)の代わりがダサい
-      α[t, :] = [dot(α[t-1, :], hmm.A[:,1]), dot(α[t-1, :], hmm.A[:,2])] .* hmm.B[:, Int(obs[t])+1]
+      α[t, :] = (α[t-1, :]' * hmm.A)' .* hmm.B[:, Int(obs[t])+1]
       c[t] = 1.0 / sum(α[t, :])
       α[t, :] = c[t] * α[t, :]
     end
